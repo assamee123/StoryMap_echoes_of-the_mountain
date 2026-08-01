@@ -144,12 +144,11 @@ function initMapTour() {
   // Add scale bar
   L.control.scale({ position: 'bottomright', imperial: true, metric: true }).addTo(map);
 
-  // OpenTopoMap tile layer
-  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    maxZoom: 17,
+  // OpenStreetMap tile layer (No contour lines)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
     attribution:
-      'Map data: &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-      '<a href="https://opentopomap.org">OpenTopoMap</a>',
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
   // Add numbered markers
@@ -305,12 +304,11 @@ function initCubLakeMap() {
   L.control.zoom({ position: 'bottomright' }).addTo(map);
   L.control.scale({ position: 'bottomright', imperial: true, metric: true }).addTo(map);
 
-  // OpenTopoMap
-  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    maxZoom: 17,
+  // OpenStreetMap (No contour lines)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
     attribution:
-      'Map data: &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-      '<a href="https://opentopomap.org">OpenTopoMap</a>',
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
   // Red pin markers
