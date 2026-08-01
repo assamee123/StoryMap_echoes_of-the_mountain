@@ -345,6 +345,24 @@ function initCubLakeMap() {
     item.addEventListener('click', () => activateWaypoint(index));
   });
 
+  // Scroll-based activation using IntersectionObserver on items
+  const itemObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.dataset.waypointIndex, 10);
+          activateWaypoint(index);
+        }
+      });
+    },
+    {
+      root: document.querySelector('.sidecar-cub__panel'),
+      threshold: 0.6,
+    }
+  );
+
+  items.forEach((item) => itemObserver.observe(item));
+
   // Activate first waypoint
   activateWaypoint(0);
 
