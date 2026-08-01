@@ -343,6 +343,7 @@ function initCubLakeMap() {
 
   items.forEach((item, index) => {
     item.addEventListener('click', () => activateWaypoint(index));
+    item.addEventListener('mouseenter', () => activateWaypoint(index));
   });
 
   // Scroll-based activation using IntersectionObserver on items
