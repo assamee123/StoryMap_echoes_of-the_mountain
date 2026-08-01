@@ -465,8 +465,6 @@ a {
 .sidecar-map-tour {
   position: relative;
   height: 100vh;
-  display: grid;
-  grid-template-columns: var(--sidecar-panel-width) 1fr;
   overflow: hidden;
 }
 
@@ -475,7 +473,11 @@ a {
   overflow-y: auto;
   padding: 0;
   z-index: 10;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--sidecar-panel-width);
+  height: 100%;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
@@ -542,7 +544,11 @@ a {
 }
 
 .sidecar-map-tour__map {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 5;
 }
 
@@ -847,17 +853,22 @@ a {
 /* ---------- Responsive Design ---------- */
 @media (max-width: 1024px) {
   .sidecar-map-tour {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     height: auto;
   }
 
   .sidecar-map-tour__panel {
+    position: relative;
+    width: 100%;
     order: 2;
     max-height: none;
     overflow-y: visible;
   }
 
   .sidecar-map-tour__map {
+    position: relative;
+    width: 100%;
     order: 1;
     height: 50vh;
     min-height: 400px;
