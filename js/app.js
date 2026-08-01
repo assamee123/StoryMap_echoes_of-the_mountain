@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initMapTour();
   initCubLakeMap();
+  initTrialKanusMap();
   initAudioPlayers();
 });
 
@@ -475,4 +476,282 @@ function initAudioPlayers() {
       durationEl.textContent = '--:--';
     });
   });
+}
+
+
+/* ============ TRIAL KANUS (SIDECAR #3) ============ */
+function initTrialKanusMap() {
+  const mapContainer = document.getElementById('trial-kanus-map');
+  if (!mapContainer) return;
+
+  const stations = [
+    {
+        "name": "Wohldorfer Schleuse",
+        "lat": 53.7047532,
+        "lng": 10.1177042
+    },
+    {
+        "name": "Haselknick",
+        "lat": 53.6934928,
+        "lng": 10.117893
+    },
+    {
+        "name": "Trillup - Quellmoor",
+        "lat": 53.6832639,
+        "lng": 10.1165752
+    },
+    {
+        "name": "Mellingburger Schleuse",
+        "lat": 53.6702024,
+        "lng": 10.09866
+    },
+    {
+        "name": "Poppenbütteler Schleuse",
+        "lat": 53.6574434,
+        "lng": 10.0878693
+    },
+    {
+        "name": "Alsterwiesen",
+        "lat": 53.6324983,
+        "lng": 10.0376061
+    },
+    {
+        "name": "Rathenau-Str.",
+        "lat": 53.6170894,
+        "lng": 10.0219383
+    },
+    {
+        "name": "Eppendorfer Mühlenteich",
+        "lat": 53.5981166666667,
+        "lng": 9.98883333333333
+    },
+    {
+        "name": "Heiligwigstr./ Eichenpark",
+        "lat": 53.5805833333333,
+        "lng": 9.99665
+    },
+    {
+        "name": "Stadtpark",
+        "lat": 53.5922333333333,
+        "lng": 10.0310833333333
+    },
+    {
+        "name": "Isebekkanal",
+        "lat": 53.5758542,
+        "lng": 9.9700873
+    },
+    {
+        "name": "Kennedybrücke",
+        "lat": 53.55895,
+        "lng": 9.99591666666667
+    },
+    {
+        "name": "Kajüte",
+        "lat": 53.5611,
+        "lng": 10.0127666666667
+    },
+    {
+        "name": "Barcastr.",
+        "lat": 53.5627229,
+        "lng": 10.017216
+    },
+    {
+        "name": "Hammerbrook",
+        "lat": 53.5463,
+        "lng": 10.0186833333333
+    },
+    {
+        "name": "Rothenburgsort",
+        "lat": 53.5437746,
+        "lng": 10.0436583
+    },
+    {
+        "name": "Bille Schleuse / A1",
+        "lat": 53.5197586,
+        "lng": 10.1222893
+    },
+    {
+        "name": "Boberger Dünen",
+        "lat": 53.5062026,
+        "lng": 10.1338067
+    },
+    {
+        "name": "Tatenberger Schleuse",
+        "lat": 53.4977333333333,
+        "lng": 10.0821666666667
+    },
+    {
+        "name": "Fährhaus",
+        "lat": 53.4966,
+        "lng": 10.0868166666667
+    },
+    {
+        "name": "Eichbaumsee",
+        "lat": 53.4824,
+        "lng": 10.1094381
+    },
+    {
+        "name": "DRV - Regattastrecke",
+        "lat": 53.4815666666667,
+        "lng": 10.1144
+    },
+    {
+        "name": "Allermöher Deich I",
+        "lat": 53.4814833333333,
+        "lng": 10.1184
+    },
+    {
+        "name": "Allermöher Deich II",
+        "lat": 53.4720666666667,
+        "lng": 10.1691666666667
+    },
+    {
+        "name": "Gose-Elbe",
+        "lat": 53.4440333333333,
+        "lng": 10.1643166666667
+    },
+    {
+        "name": "Bauhaus",
+        "lat": 53.4833,
+        "lng": 10.2048166666667
+    },
+    {
+        "name": "Serrahn",
+        "lat": 53.4887666666667,
+        "lng": 10.20965
+    },
+    {
+        "name": "Schloss Bergedorf",
+        "lat": 53.4891333333333,
+        "lng": 10.2104833333333
+    },
+    {
+        "name": "Chrysanderstr.",
+        "lat": 53.49305,
+        "lng": 10.2140166666667
+    },
+    {
+        "name": "Schloss Reinbek",
+        "lat": 53.5065833333333,
+        "lng": 10.2526333333333
+    },
+    {
+        "name": "Pönitzerwiek",
+        "lat": 53.9516333333333,
+        "lng": 10.8882666666667
+    },
+    {
+        "name": "Kanuhelden-Neustadt",
+        "lat": 54.1022833333333,
+        "lng": 10.8123166666667
+    },
+    {
+        "name": "Klein Borstel",
+        "lat": 53.6296327,
+        "lng": 10.0313295
+    }
+];
+
+  // Center map around Hamburg / Alster region
+  const map = L.map('trial-kanus-map', {
+    center: [53.6000, 10.0500],
+    zoom: 11,
+    zoomControl: false,
+    attributionControl: true,
+  });
+
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  L.control.scale({ position: 'bottomright', imperial: true, metric: true }).addTo(map);
+
+  // OpenStreetMap tile layer (No contour lines)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  // Add numbered markers for each Kanutour station
+  const markers = stations.map((st, index) => {
+    const icon = L.divIcon({
+      className: 'numbered-marker kanu-marker',
+      html: `<span>${index + 1}</span>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+    });
+
+    const marker = L.marker([st.lat, st.lng], { icon })
+      .addTo(map)
+      .bindTooltip(`Station ${index + 1}: ${st.name}`, {
+        permanent: false,
+        direction: 'top',
+        className: 'map-tooltip',
+        offset: [0, -10],
+      });
+
+    return marker;
+  });
+
+  const cards = document.querySelectorAll('.sidecar-kanu__card');
+  const counterCurrent = document.querySelector('.sidecar-kanu__counter-current');
+
+  function activateStation(index) {
+    cards.forEach((card, i) => {
+      card.classList.toggle('active', i === index);
+    });
+
+    if (counterCurrent) {
+      counterCurrent.textContent = String(index + 1).padStart(2, '0');
+    }
+
+    const st = stations[index];
+    map.flyTo([st.lat, st.lng], 14, { duration: 1.2 });
+
+    markers.forEach((marker, i) => {
+      const el = marker.getElement();
+      if (el) {
+        const inner = el.querySelector('.numbered-marker');
+        if (inner) {
+          inner.classList.toggle('active', i === index);
+        }
+      }
+    });
+
+    markers[index].openTooltip();
+  }
+
+  cards.forEach((card, index) => {
+    card.addEventListener('click', () => activateStation(index));
+    card.addEventListener('mouseenter', () => activateStation(index));
+  });
+
+  const cardObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.dataset.kanuIndex, 10);
+          activateStation(index);
+        }
+      });
+    },
+    {
+      root: document.querySelector('.sidecar-kanu__panel'),
+      threshold: 0.6,
+    }
+  );
+
+  cards.forEach((card) => cardObserver.observe(card));
+  activateStation(0);
+
+  const HomeControl = L.Control.extend({
+    options: { position: 'bottomright' },
+    onAdd: function () {
+      const btn = L.DomUtil.create('div', 'leaflet-bar');
+      btn.innerHTML = '<a class="leaflet-home-btn" href="#" title="Reset view">⌂</a>';
+      btn.querySelector('a').addEventListener('click', (e) => {
+        e.preventDefault();
+        map.flyTo([53.6000, 10.0500], 11, { duration: 1.2 });
+      });
+      return btn;
+    },
+  });
+  new HomeControl().addTo(map);
 }
