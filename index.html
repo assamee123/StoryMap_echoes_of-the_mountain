@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Echoes of the Rockies — Mindful Walks in Rocky Mountain National Park. An interactive story map exploring Cub Lake Loop, Ouzel Falls, and Sprague Lake." />
+  <title>Echoes of the Rockies</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ==================== TOP HEADER BAR ==================== -->
+  <header class="top-header" id="top-header">
+    <span class="top-header__title">Echoes of the Rockies</span>
+  </header>
+
+  <!-- ==================== SECTION NAVIGATION ==================== -->
+  <nav class="section-nav" id="section-nav">
+    <a href="#introduction" class="section-nav__link">Introduction</a>
+    <a href="#map-tour" class="section-nav__link">Map Tour</a>
+    <a href="#moraine-park" class="section-nav__link">Moraine Park</a>
+    <a href="#cub-lake-loop" class="section-nav__link">Cub Lake Loop</a>
+    <a href="#ouzel-falls" class="section-nav__link">Ouzel Falls</a>
+    <a href="#sprague-lake" class="section-nav__link">Sprague Lake</a>
+    <a href="#credits" class="section-nav__link">Credits</a>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero" id="hero">
+    <div class="hero__bg" style="background-image: url('images/hero.png');"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <h1 class="hero__title">Echoes of the Rockies</h1>
+      <p class="hero__subtitle">Mindful Walks in Rocky Mountain National Park.</p>
+      <p class="hero__author">Al Maimun As Samee</p>
+      <p class="hero__date">May 11, 2026</p>
+    </div>
+    <div class="hero__scroll-arrow" title="Scroll down">↓</div>
+  </section>
+
+  <!-- ==================== INTRODUCTION ==================== -->
+  <section class="narrative-section" id="introduction">
+    <div class="narrative-section__inner fade-in-up">
+      <h2 class="narrative-section__heading narrative-section__heading--center">Introduction</h2>
+      <div class="section-divider"></div>
+      <p class="narrative-section__text" style="text-align:center;">
+        Experience the landscapes, wildlife, and sounds of Rocky Mountain National Park through an interactive journey across Cub Lake Loop, Ouzel Falls, and Sprague Lake. This Story Map combines scenic photography, trail highlights, and natural soundscapes to showcase the beauty and diversity of the Rocky Mountains.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== MAP TOUR (SIDECAR #1) ==================== -->
+  <section class="sidecar-map-tour" id="map-tour">
+    <!-- Left Panel: Scrollable Cards -->
+    <div class="sidecar-map-tour__panel">
+      <!-- Card 1: Moraine Park -->
+      <div class="sidecar-map-tour__card active" data-stop-index="0">
+        <img src="images/moraine_park.png" alt="Moraine Park — elk herd grazing in a vast mountain meadow" class="sidecar-map-tour__card-img" />
+        <div class="sidecar-map-tour__card-body">
+          <h3 class="sidecar-map-tour__card-title">Moraine Park</h3>
+        </div>
+      </div>
+
+      <!-- Card 2: Cub Lake Loop -->
+      <div class="sidecar-map-tour__card" data-stop-index="1">
+        <img src="images/cub_lake_loop.png" alt="Cub Lake Loop — hiking trail through alpine valley" class="sidecar-map-tour__card-img" />
+        <div class="sidecar-map-tour__card-body">
+          <h3 class="sidecar-map-tour__card-title">Cub Lake Loop</h3>
+        </div>
+      </div>
+
+      <!-- Card 3: Ouzel Falls -->
+      <div class="sidecar-map-tour__card" data-stop-index="2">
+        <img src="images/ouzel_falls.png" alt="Ouzel Falls — dramatic waterfall in pine forest" class="sidecar-map-tour__card-img" />
+        <div class="sidecar-map-tour__card-body">
+          <h3 class="sidecar-map-tour__card-title">Ouzel Falls</h3>
+        </div>
+      </div>
+
+      <!-- Card 4: Sprague Lake -->
+      <div class="sidecar-map-tour__card" data-stop-index="3">
+        <img src="images/sprague_lake.png" alt="Sprague Lake — calm alpine lake reflecting snow-capped mountains" class="sidecar-map-tour__card-img" />
+        <div class="sidecar-map-tour__card-body">
+          <h3 class="sidecar-map-tour__card-title">Sprague Lake</h3>
+        </div>
+      </div>
+
+      <!-- Counter -->
+      <div class="sidecar-map-tour__counter">
+        <span class="sidecar-map-tour__counter-current">01</span>
+        / 04
+      </div>
+    </div>
+
+    <!-- Right Panel: Leaflet Map -->
+    <div class="sidecar-map-tour__map">
+      <div id="map-tour-map"></div>
+    </div>
+  </section>
+
+  <!-- ==================== MORAINE PARK ==================== -->
+  <section class="narrative-section" id="moraine-park">
+    <div class="narrative-section__inner">
+      <h2 class="narrative-section__heading fade-in-up">Moraine Park</h2>
+
+      <!-- Full-width river image -->
+      <div class="full-image fade-in-up">
+        <img src="images/moraine_river.png" alt="Big Thompson River winding through Moraine Park valley" />
+      </div>
+
+      <p class="narrative-section__text fade-in-up">
+        Moraine Park is a large open meadow at 8,160 feet in elevation. The Big Thompson river runs through the valley and it is home to numerous species of birds, mammals and fish.
+      </p>
+
+      <p class="narrative-section__text fade-in-up">
+        Rocky Mountain National Park gets a huge influx of visitors during the elk mating season, also known as the rut. Elk are commonly seen in the park's meadows during the evenings, and visitors flock to observe them. So the park calls on the Elk Bugle Corps volunteers.
+      </p>
+
+      <!-- Elk sparring image with caption -->
+      <div class="captioned-image fade-in-up">
+        <div class="captioned-image__img">
+          <img src="images/elk_sparring.png" alt="Two bull elk locking antlers in a grassy field" />
+        </div>
+        <p class="captioned-image__caption">
+          Three elk are standing in a grassy field, with two of them locking antlers in a display of dominance while the third stands nearby.
+        </p>
+      </div>
+
+      <p class="narrative-section__text fade-in-up">
+        Primarily from mid-September through mid-October, prime bull elk — about 8- to 9-years-old — battle each other for the right to establish harems of cows with which to breed.
+      </p>
+
+      <!-- Audio Player 1 -->
+      <div class="audio-player fade-in-up" id="audio-player-1">
+        <audio preload="metadata">
+          <source src="audio/elk_vocalization.mp3" type="audio/mpeg" />
+        </audio>
+        <div class="audio-player__controls">
+          <button class="audio-player__play-btn" aria-label="Play/Pause">
+            <svg class="play-icon" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20" /></svg>
+            <svg class="pause-icon" viewBox="0 0 24 24"><rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/></svg>
+          </button>
+          <div class="audio-player__progress-wrap">
+            <div class="audio-player__progress-bar">
+              <div class="audio-player__progress-fill"></div>
+            </div>
+            <div class="audio-player__time">
+              <span class="audio-player__current">0:00</span>
+              <span class="audio-player__duration">0:22</span>
+            </div>
+          </div>
+          <div class="audio-player__volume">
+            <svg class="audio-player__volume-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0012 7.5v9a4.5 4.5 0 004.5-4.5z"/></svg>
+            <input type="range" class="audio-player__volume-slider" min="0" max="1" step="0.05" value="0.8" />
+          </div>
+        </div>
+        <p class="audio-player__caption">Elk vocalization in Moraine Park. Credit: National Park Service, Jacob Job (Colorado State University).</p>
+      </div>
+
+      <!-- Audio Player 2 -->
+      <div class="audio-player fade-in-up" id="audio-player-2">
+        <audio preload="metadata">
+          <source src="audio/elk_bugle.mp3" type="audio/mpeg" />
+        </audio>
+        <div class="audio-player__controls">
+          <button class="audio-player__play-btn" aria-label="Play/Pause">
+            <svg class="play-icon" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20" /></svg>
+            <svg class="pause-icon" viewBox="0 0 24 24"><rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/></svg>
+          </button>
+          <div class="audio-player__progress-wrap">
+            <div class="audio-player__progress-bar">
+              <div class="audio-player__progress-fill"></div>
+            </div>
+            <div class="audio-player__time">
+              <span class="audio-player__current">0:00</span>
+              <span class="audio-player__duration">0:38</span>
+            </div>
+          </div>
+          <div class="audio-player__volume">
+            <svg class="audio-player__volume-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0012 7.5v9a4.5 4.5 0 004.5-4.5z"/></svg>
+            <input type="range" class="audio-player__volume-slider" min="0" max="1" step="0.05" value="0.8" />
+          </div>
+        </div>
+        <p class="audio-player__caption">Elk mew, bugle and glug. Credit: National Park Service, Jacob Job (Colorado State University).</p>
+      </div>
+
+      <p class="narrative-section__text fade-in-up">
+        About the bugling: It's a signal of a bull elk's strength. The bugling generally starts with a crescendo of deep, resonant tones that rise rapidly to a high-pitched squeal before dropping to a series of grunts. The bigger the bull, the louder and more range the call.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== CUB LAKE LOOP (SIDECAR #2) ==================== -->
+  <section class="sidecar-cub" id="cub-lake-loop">
+    <!-- Left Panel: Clickable Trail Stops -->
+    <div class="sidecar-cub__panel">
+      <!-- Slide 1 -->
+      <div class="sidecar-cub__item active" data-waypoint-index="0">
+        <img src="images/cub_trailhead.png" alt="Cub Lake Trailhead creek crossing" class="sidecar-cub__item-thumb" />
+        <div class="sidecar-cub__item-content">
+          <h3 class="sidecar-cub__item-title">Cub Lake Trailhead</h3>
+          <p class="sidecar-cub__item-text">As you cross the Big Thompson river, keep an eye out for trout, such as wild brown, brook, and greenback cutthroat.</p>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="sidecar-cub__item" data-waypoint-index="1">
+        <img src="images/cub_weather.png" alt="Foggy mountain trail" class="sidecar-cub__item-thumb" />
+        <div class="sidecar-cub__item-content">
+          <h3 class="sidecar-cub__item-title">Changing weather</h3>
+          <p class="sidecar-cub__item-text">Be prepared for a variety of weather conditions, no matter the time of year. if you are prepared, you can enjoy the unexpected pleasure of a cool fog, a snowstorm, or a rain shower.</p>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="sidecar-cub__item" data-waypoint-index="2">
+        <img src="images/cub_frogs.png" alt="Mountain wetland area near Cub Lake" class="sidecar-cub__item-thumb" />
+        <div class="sidecar-cub__item-content">
+          <h3 class="sidecar-cub__item-title">A chorus of frogs</h3>
+          <p class="sidecar-cub__item-text">As you pass through wetlands, such as here at Cub Lake, listen for the calls of male Western Chorus Frogs.</p>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="sidecar-cub__item" data-waypoint-index="3">
+        <img src="images/cub_snake.png" alt="Western terrestrial garter snake on trail" class="sidecar-cub__item-thumb" />
+        <div class="sidecar-cub__item-content">
+          <h3 class="sidecar-cub__item-title">Western terrestrial garter snake</h3>
+          <p class="sidecar-cub__item-text">In the park's lower elevations, you may come across a western terrestrial garter snake warming up in the sun.</p>
+        </div>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="sidecar-cub__item" data-waypoint-index="4">
+        <img src="images/cub_grouse.png" alt="Dusky grouse chick in mountain shrubs" class="sidecar-cub__item-thumb" />
+        <div class="sidecar-cub__item-content">
+          <h3 class="sidecar-cub__item-title">Dusky grouse</h3>
+          <p class="sidecar-cub__item-text">In the late spring and summer, dusky grouse - such as this chick- can be spotted in shrubby areas.</p>
+        </div>
+      </div>
+
+      <!-- Slide 6 -->
+      <div class="sidecar-cub__item" data-waypoint-index="5">
+        <img src="images/cub_wildfire.png" alt="Wildfire recovery with burned trees and new growth" class="sidecar-cub__item-thumb" />
+        <div class="sidecar-cub__item-content">
+          <h3 class="sidecar-cub__item-title">Wildfire recovery</h3>
+          <p class="sidecar-cub__item-text">In 2020, the East Troublesome Fire reached this area, inflicting major damage. Although you can still see evidence of the fire, such as with these blackened tree trunks, you can also see the regrowth of vegetation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Leaflet Map -->
+    <div class="sidecar-cub__map">
+      <div id="cub-lake-map"></div>
+    </div>
+  </section>
+
+  <!-- ==================== OUZEL FALLS ==================== -->
+  <section class="narrative-section" id="ouzel-falls">
+    <div class="narrative-section__inner">
+      <h2 class="narrative-section__heading fade-in-up">Ouzel Falls</h2>
+
+      <!-- Trail Metadata -->
+      <div class="trail-meta fade-in-up">
+        <span class="trail-meta__badge">
+          <span class="trail-meta__badge-icon">⬆</span> Elevation Gain: 1,050ft / 315m
+        </span>
+        <span class="trail-meta__badge">
+          <span class="trail-meta__badge-icon">⬇</span> Elevation Loss: 1,050ft / 315m
+        </span>
+      </div>
+
+      <!-- External Link Card -->
+      <a href="https://www.nps.gov/thingstodo/romo_ouzelfalls.htm" target="_blank" rel="noopener noreferrer" class="link-card fade-in-up">
+        <div class="link-card__icon">
+          <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7H12z"/></svg>
+        </div>
+        <div class="link-card__text">
+          <div class="link-card__title">Ouzel Falls — Rocky Mountain National Park (U.S. National Park Service)</div>
+          <div class="link-card__url">nps.gov</div>
+        </div>
+        <span class="link-card__arrow">→</span>
+      </a>
+
+      <!-- Ouzel Falls Image -->
+      <div class="full-image fade-in-up">
+        <img src="images/ouzel_falls.png" alt="Ouzel Falls cascading over rocky ledge" />
+      </div>
+
+      <p class="narrative-section__text fade-in-up">
+        Hike along a gentle path by the side of North Saint Vrain Creek as it makes its way through the deep forests of Wild Basin. The trail passes by the impressive Calypso Cascades and then winds through open forest before climbing up to beautiful Ouzel Falls.
+      </p>
+
+      <p class="narrative-section__text fade-in-up">
+        Ouzel Falls powerfully drops onto boulders where it turns and cascades into the valley below. After 0.3mi/0.5mi along the level, forested trail, take the side trail to Copeland Falls where North Saint Vrain Creek drops into a couple of mesmerizing pools.
+      </p>
+
+      <!-- Creek Image -->
+      <div class="captioned-image fade-in-up">
+        <div class="captioned-image__img">
+          <img src="images/cub_trailhead.png" alt="North Saint Vrain Creek flowing through forest" />
+        </div>
+        <p class="captioned-image__caption">North Saint Vrain Creek along the Ouzel Falls trail.</p>
+      </div>
+
+      <p class="narrative-section__text fade-in-up">
+        Continue up along the playful creek and cross over at an unnamed cascade. A brief climb takes you to another bridge over the Calypso Cascade, your second waterfall of the day. The trail traverses the hillside before climbing up to Ouzel Falls.
+      </p>
+
+      <p class="narrative-section__text fade-in-up">
+        Before crossing the bridge, follow the trail up to the base of the falls where it shoots out from the ledge above and drops 40ft/12m.
+      </p>
+
+      <p class="narrative-section__text fade-in-up">
+        <strong>Trailhead:</strong> From Colorado Hwy 7, just north of Allenspark, turn onto Wild Basin Road. The Wild Basin Ranger Station and trailhead is 2.2mi/3.5km past the entrance station.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== SPRAGUE LAKE ==================== -->
+  <section class="narrative-section" id="sprague-lake">
+    <div class="narrative-section__inner">
+      <h2 class="narrative-section__heading fade-in-up">Sprague Lake</h2>
+
+      <!-- Main Lake Image -->
+      <div class="captioned-image fade-in-up">
+        <div class="captioned-image__img">
+          <img src="images/sprague_lake.png" alt="Sprague Lake with Hallett Peak reflected in calm water" />
+        </div>
+        <p class="captioned-image__caption">Sprague Lake with Hallett Peak</p>
+      </div>
+
+      <!-- Trail Metadata -->
+      <div class="trail-meta fade-in-up">
+        <span class="trail-meta__badge">
+          <span class="trail-meta__badge-icon">📏</span> Distance: 0.7 miles round trip (1.1 Km)
+        </span>
+        <span class="trail-meta__badge">
+          <span class="trail-meta__badge-icon">⬆</span> Elevation Gain: 34 feet
+        </span>
+        <span class="trail-meta__badge">
+          <span class="trail-meta__badge-icon">🔄</span> Type of Trail: Loop, Easy
+        </span>
+      </div>
+
+      <p class="narrative-section__text fade-in-up">
+        Stroll around the lake shore, rest on the numerous benches, and take in the fantastic mountain vistas of Rocky Mountain National Park, while enjoying the smooth, wide path on this short hike.
+      </p>
+
+      <p class="narrative-section__text fade-in-up">
+        This gorgeous and wheelchair accessible stroll is great for hikers of all abilities. There are plenty of benches and lookouts over the lake to stop and reflect. Enjoy the view - mountain peaks along the Continental Divide can be seen clearly from the east shoreline.
+      </p>
+
+      <!-- Boardwalk Image (reusing moraine river as scenic alternative) -->
+      <div class="captioned-image fade-in-up">
+        <div class="captioned-image__img">
+          <img src="images/moraine_river.png" alt="Sprague Lake Boardwalk" />
+        </div>
+        <p class="captioned-image__caption">Sprague Lake Boardwalk</p>
+      </div>
+
+      <!-- Peaks Image (reusing hero as scenic mountains) -->
+      <div class="captioned-image fade-in-up">
+        <div class="captioned-image__img">
+          <img src="images/hero.png" alt="Sprague Lake trail with mountain views" />
+        </div>
+        <p class="captioned-image__caption">Sprague Lake trail</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CREDITS ==================== -->
+  <section class="credits-section" id="credits">
+    <h2 class="credits-section__heading fade-in-up">Credits</h2>
+    <p class="credits-section__text fade-in-up">
+      Special recognition is given to National Park Service and Rocky Mountain National Park for preserving and maintaining these extraordinary natural landscapes.
+    </p>
+  </section>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- App JS -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
